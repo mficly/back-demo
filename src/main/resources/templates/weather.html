@@ -1,10 +1,18 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
-$END$
+    <div th:align="center" th:if="${person} != null" style="color: greenyellow">
+        <span th:text="${person.getId()}"></span> ==>
+        <span th:text="${person.getName()}"></span> ==>
+        <span th:text="${person.getAge()}"></span>
+    </div>
 </body>
 </html>
+————————————————
+版权声明：本文为CSDN博主「o_瓜田李下_o」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/weixin_43931625/article/details/107832908
