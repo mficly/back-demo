@@ -11,10 +11,7 @@
             <span style="width: 50%;border-right:1px dashed #000000;border-bottom:1px dashed #000000;">
                 <select name="city" id="city">
                     <option value="">please choose a city</option>
-<!--                    <option th:selected="${weather.getCityName()=='Melbourne'}">Melbourne</option>-->
-<!--                    <option th:selected="${weather.getCityName()=='Sydney'}">Sydney</option>-->
-<!--                    <option th:selected="${weather.getCityName()=='Wollongong'}">Wollongong</option>-->
-                    <option th:onchange="'javascript:searchWeather();'"
+                    <option th:selected="${weather.getCityName()==city}"
                             th:each="city : ${cities}"
                             th:value="${city}" th:text="${city}">
                     </option>
@@ -42,11 +39,18 @@
 </html>
 
 <script>
-    function searchWeather(){
-        var options = $("#city option:selected");
-        debugger
-    }
+    $("#city").bind("change", function () {
+        var id = $("#city option:selected").val();
+        $.ajax({
+            type: "POST",
+            url: `/api/v1/getWeatherByCity/${id}`,
+            data: {},
+            success: function(response){
 
+            },
+            error: function(error){
 
-
+            }
+        });
+    });
 </script>
