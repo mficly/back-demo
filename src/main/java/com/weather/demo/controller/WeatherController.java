@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import java.lang.reflect.Array;
 import java.util.*;
 
 @RestController
@@ -15,9 +16,9 @@ public class WeatherController {
     @Resource
     WeatherQueryService weatherQueryService;
 
-    @RequestMapping("/getWeatherByCityName")
-    public ModelAndView hello(ModelAndView mv){
-        JSONObject results = weatherQueryService.queryWeather();
+    @RequestMapping("/api/v1/getWeather")
+    public ModelAndView entry(ModelAndView mv){
+        JSONObject results = weatherQueryService.queryDefaultWeather();
         Map<String, ?> jsonMap = JSONObject.toJavaObject(results, Map.class);
 
         Weather weather = new Weather();
@@ -70,7 +71,17 @@ public class WeatherController {
         weather.setTemperature(sb1.toString());
         weather.setWeather(sb2.toString());
         weather.setWind(sb3.toString());
+        mv.addObject("weather",weather);
         mv.setViewName("weather");
+
+       String[] cities = new String[]{"Melbourne", "Sydney", "Wollongong"};
+        mv.addObject("cities",cities);
+        return mv;
+    }
+
+    @RequestMapping("/api/v1/getWeatherByCity")
+    public ModelAndView query(ModelAndView mv, String city){
+        JSONObject results = weatherQueryService.queryWeatherByCity(city);
         return mv;
     }
 }
